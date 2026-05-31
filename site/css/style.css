@@ -162,7 +162,7 @@ section.banner span {
 
 section.banner p {
     font-size: clamp(1rem, 1vw + 0.5rem, 1.25rem);
-    /* Fonte fluida */
+    
     margin: 0;
     text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9);
 }
@@ -175,7 +175,7 @@ main {
 
 main section {
     margin-bottom: 60px;
-    /* Garante espaço para o scroll não "comer" o título */
+    
     scroll-margin-top: 100px;
 }
 
@@ -217,7 +217,7 @@ section.historia img {
     display: block;
 }
 
-/* --- ESTILOS DO MENU HAMBÚRGUER --- */
+
 
 .menu-toggle {
     display: none;
@@ -262,12 +262,12 @@ section.historia img {
     nav {
         position: fixed;
         top: 0;
-        /* Começa fora da tela (à direita) */
+        
         right: -100%;
         width: 250px;
-        /* Largura do menu */
+        
         height: 100vh;
-        /* Altura total da tela */
+        
         background-color: #ffffff;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
         transition: right 0.3s ease-in-out;
@@ -309,7 +309,7 @@ section.historia img {
         right: 0;
     }
 
-    /* Anima o ícone de hambúrguer para um "X" */
+    
     .menu-toggle:checked~.hamburger-menu .bar:nth-child(1) {
         transform: rotate(45deg) translate(6px, 6px);
     }
@@ -416,7 +416,7 @@ section.historia img {
     font-weight: bold;
 }
 
-/* MUDANÇA: Estilo do Preço */
+
 .Produtos>ul>li .preco {
     margin-top: 20px;
     margin-bottom: 0;
@@ -426,7 +426,7 @@ section.historia img {
 }
 
 
-/* ===== TAXAS DE ENTREGA ===== */
+
 .entrega {
     margin-bottom: 60px;
 }
@@ -438,7 +438,7 @@ section.historia img {
 
 .tabela-wrapper {
     overflow-x: auto;
-    /* Garante scroll em telas pequenas */
+    
     margin-top: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -449,7 +449,7 @@ section.historia img {
     border-collapse: collapse;
     background-color: #fff;
     min-width: 500px;
-    /* Evita que a tabela fique muito espremida */
+    
 }
 
 .tabela-taxas caption {
@@ -658,7 +658,7 @@ section.contato>div>section:nth-of-type(2)>div a.btn2 {
     color: #1A0D06;
 }
 
-/* ===== FORMULÁRIO DE CONTATO ===== */
+
 .formulario-contato {
     background-color: #f9f8fa;
     border-radius: 10px;
@@ -728,11 +728,11 @@ section.contato>div>section:nth-of-type(2)>div a.btn2 {
 .form-group textarea {
     padding: 12px 15px;
     border: 1px solid #767676;
-    /* WCAG 3:1 contrast for borders */
+    
     border-radius: 5px;
     font-family: inherit;
     font-size: 16px;
-    /* Acessibilidade Mobile: prevenir zoom no iOS */
+    
     transition: border-color 0.3s, box-shadow 0.3s;
     background-color: #fff;
     color: #333;
@@ -778,7 +778,7 @@ section.contato>div>section:nth-of-type(2)>div a.btn2 {
     box-shadow: 0 0 0 3px rgba(158, 41, 54, 0.4);
 }
 
-/* ===== FOOTER ===== */
+
 footer {
     padding: 50px 20px 20px;
     margin-top: 60px;
@@ -794,7 +794,7 @@ footer>section {
     margin-bottom: 30px;
 }
 
-/* Coluna 1 - Logo e descrição */
+
 footer>section>div:nth-child(1) {
     display: flex;
     flex-direction: column;
@@ -810,7 +810,7 @@ footer>section>div:nth-child(1)>div {
 footer>section>div:nth-child(1)>div>img {
     height: auto;
     max-width: 200px;
-    /* Largura para o novo placeholder */
+    
 }
 
 footer>section>div:nth-child(1)>p {
@@ -821,7 +821,7 @@ footer>section>div:nth-child(1)>p {
     line-height: 1.5;
 }
 
-/* Colunas 2 e 3 - Links e Especialidades */
+
 footer>section>div:nth-child(2),
 footer>section>div:nth-child(3) {
     display: flex;
@@ -869,7 +869,7 @@ footer>p {
     margin: 0 auto;
 }
 
-/* Botão Flutuante whatsapp */
+
 .btn-whatsapp-flutuante {
     position: fixed;
     bottom: 20px;
@@ -950,7 +950,7 @@ footer>p {
     background-color: #1ebe57;
 }
 
-/* Responsividade */
+
 @media (max-width: 768px) {
     footer>section {
         grid-template-columns: 1fr;
@@ -1005,9 +1005,7 @@ footer>p {
     text-shadow: 1px 1px 4px rgba(255,255,255,0.9);
 }
 
-/* =============================================
-   CARDÁPIO
-   ============================================= */
+
 .cardapio-section {
     padding: 40px 20px;
     max-width: 1200px;
@@ -1219,9 +1217,7 @@ footer>p {
     font-size: 14px;
 }
 
-/* =============================================
-   PEDIDOS — CRUD
-   ============================================= */
+
 .pedidos-section {
     padding: 40px 20px;
     max-width: 1200px;
@@ -1233,6 +1229,233 @@ footer>p {
     flex-wrap: wrap;
     gap: 30px;
     align-items: flex-start;
+}
+
+
+.form-tabs {
+    display: flex;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 30px;
+    padding: 4px;
+    margin-bottom: 25px;
+    gap: 4px;
+}
+
+.tab-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px 15px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #555;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.tab-btn:hover {
+    color: var(--cor-fundo);
+}
+
+.tab-btn.active {
+    background: #fff;
+    color: var(--cor-fundo);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+
+.hidden-tab {
+    display: none !important;
+}
+
+
+.form-section {
+    margin-bottom: 25px;
+}
+
+.form-section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #3E2210;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 6px;
+}
+
+.form-subtitulo {
+    font-size: 14px;
+    color: #777;
+    margin-top: -15px;
+    margin-bottom: 20px;
+}
+
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.options-grid.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+
+.card-option {
+    cursor: pointer;
+    position: relative;
+    display: block;
+}
+
+.card-option input[type="radio"],
+.card-option-simple input[type="radio"],
+.card-option-simple input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.card-option-content {
+    background: #fff;
+    border: 2px solid #e2e2e2;
+    border-radius: 12px;
+    padding: 15px 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+
+.card-option-content i {
+    font-size: 24px;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+.card-option-content .option-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+}
+
+.card-option-content .option-price {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--cor-fundo);
+}
+
+
+.card-option:hover .card-option-content,
+.card-option-simple:hover {
+    border-color: #f0c3c8;
+    background-color: #fffbfa;
+}
+
+.card-option input[type="radio"]:checked + .card-option-content {
+    border-color: var(--cor-fundo);
+    background-color: #fff5f6;
+    box-shadow: 0 4px 10px rgba(158, 41, 54, 0.1);
+}
+
+.card-option input[type="radio"]:checked + .card-option-content i {
+    color: var(--cor-fundo);
+    transform: scale(1.1);
+}
+
+
+.card-option-simple {
+    background: #fff;
+    border: 2px solid #e2e2e2;
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 42px;
+    box-sizing: border-box;
+}
+
+.card-option-simple input[type="radio"]:checked + span,
+.card-option-simple input[type="checkbox"]:checked + span {
+    color: var(--cor-fundo);
+}
+
+.card-option-simple:has(input:checked) {
+    border-color: var(--cor-fundo);
+    background-color: #fff5f6;
+    font-weight: 700;
+}
+
+
+.custom-resumo-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    border-left: 4px solid var(--cor-fundo);
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.custom-resumo-card h4 {
+    margin: 0 0 5px 0;
+    font-size: 13px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.custom-resumo-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.custom-total-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+    font-size: 14px;
+    color: #333;
+}
+
+.custom-total-linha strong {
+    font-size: 18px;
+    color: var(--cor-fundo);
+}
+
+.btn-adicionar-custom {
+    width: 100%;
+    border: none;
+    font-weight: 700;
+    padding: 14px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-adicionar-custom:hover {
+    filter: brightness(0.9);
 }
 
 .pedido-form-area {
@@ -1468,9 +1691,7 @@ footer>p {
     color: #c0392b;
 }
 
-/* =============================================
-   AVALIAÇÕES — DOM TRAVERSAL
-   ============================================= */
+
 .avaliacoes-section {
     padding: 40px 20px;
     max-width: 1200px;
@@ -1624,9 +1845,7 @@ footer>p {
     gap: 8px;
 }
 
-/* =============================================
-   SOBRE / HISTÓRIA
-   ============================================= */
+
 .sobre-historia {
     display: flex;
     flex-wrap: wrap;
@@ -1664,7 +1883,7 @@ footer>p {
     box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 
-/* Contadores */
+
 .numeros-section {
     background: var(--cor-fundo);
     padding: 50px 20px;
@@ -1712,7 +1931,7 @@ footer>p {
     color: rgba(255,255,255,0.8);
 }
 
-/* Linha do tempo */
+
 .linha-do-tempo-section {
     max-width: 800px;
     margin: 0 auto 60px;
@@ -1799,7 +2018,7 @@ footer>p {
     line-height: 1.5;
 }
 
-/* FAQ Accordion */
+
 .faq-section {
     max-width: 800px;
     margin: 0 auto 60px;
@@ -1886,9 +2105,7 @@ footer>p {
     margin: 10px 0 0;
 }
 
-/* =============================================
-   GALERIA
-   ============================================= */
+
 .galeria-section {
     padding: 40px 20px;
     max-width: 1200px;
@@ -1953,7 +2170,7 @@ footer>p {
     color: #fff;
 }
 
-/* Lightbox */
+
 .lightbox-overlay {
     position: fixed;
     inset: 0;
@@ -2056,9 +2273,7 @@ footer>p {
     }
 }
 
-/* ==========================================================================
-   Simulador de Frete
-   ========================================================================== */
+
 .frete-container {
     margin-bottom: 20px;
     padding-bottom: 18px;

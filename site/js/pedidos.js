@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var itemEditando = document.getElementById("item-editando");
     var formTitulo = document.getElementById("form-titulo");
     
-    // Elementos do Simulador de Frete
+    
     var selectFrete = document.getElementById("frete-select");
     var valorFreteEl = document.getElementById("valor-frete");
     var valorSubtotalEl = document.getElementById("valor-subtotal");
@@ -193,7 +193,10 @@ document.addEventListener("DOMContentLoaded", function () {
             salvarCarrinho();
         });
 
-        tdAcoes.appendChild(btnEditar);
+        
+        if (produto.indexOf("Personalizado") === -1) {
+            tdAcoes.appendChild(btnEditar);
+        }
         tdAcoes.appendChild(btnRemover);
 
         tr.appendChild(tdProduto);
@@ -286,14 +289,194 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Carrega o carrinho existente ou inicia um novo
+    
+    var tabPronto = document.getElementById("tab-pronto");
+    var tabPersonalizado = document.getElementById("tab-personalizado");
+    var formProntoWrapper = document.getElementById("form-pronto-wrapper");
+    var formPersonalizadoWrapper = document.getElementById("form-personalizado-wrapper");
+
+    if (tabPronto && tabPersonalizado) {
+        tabPronto.addEventListener("click", function () {
+            tabPronto.classList.add("active");
+            tabPronto.setAttribute("aria-selected", "true");
+            tabPersonalizado.classList.remove("active");
+            tabPersonalizado.setAttribute("aria-selected", "false");
+            formProntoWrapper.hidden = false;
+            formProntoWrapper.classList.remove("hidden-tab");
+            formPersonalizadoWrapper.hidden = true;
+            formPersonalizadoWrapper.classList.add("hidden-tab");
+        });
+
+        tabPersonalizado.addEventListener("click", function () {
+            tabPersonalizado.classList.add("active");
+            tabPersonalizado.setAttribute("aria-selected", "true");
+            tabPronto.classList.remove("active");
+            tabPronto.setAttribute("aria-selected", "false");
+            formPersonalizadoWrapper.hidden = false;
+            formPersonalizadoWrapper.classList.remove("hidden-tab");
+            formProntoWrapper.hidden = true;
+            formProntoWrapper.classList.add("hidden-tab");
+        });
+    }
+
+    
+    var formCustom = document.getElementById("form-pedido-personalizado");
+    var customResumoTexto = document.getElementById("custom-resumo-texto");
+    var customPrecoTotal = document.getElementById("custom-preco-total");
+    var erroRecheios = document.getElementById("erro-recheios");
+    var erroToppings = document.getElementById("erro-toppings");
+
+    function atualizarDocePersonalizado() {
+        if (!formCustom) return;
+
+        
+        var tipoInput = formCustom.querySelector("input[name='custom-tipo']:checked");
+        var tipoPreco = parseFloat(tipoInput.getAttribute("data-preco"));
+        var tipoNome = tipoInput.value.split(" — ")[0]; 
+
+        
+        var baseInput = formCustom.querySelector("input[name='custom-base']:checked");
+        var baseNome = baseInput ? baseInput.value : "Nenhum";
+
+        
+        var recheiosChecked = formCustom.querySelectorAll("input[name='custom-recheio']:checked");
+        var recheiosPreco = 0;
+        var recheiosNomes = [];
+
+        recheiosChecked.forEach(function (input) {
+            recheiosPreco += parseFloat(input.getAttribute("data-preco"));
+            recheiosNomes.push(input.value);
+        });
+
+        
+        var toppingsChecked = formCustom.querySelectorAll("input[name='custom-topping']:checked");
+        var toppingsPreco = 0;
+        var toppingsNomes = [];
+
+        toppingsChecked.forEach(function (input) {
+            toppingsPreco += parseFloat(input.getAttribute("data-preco"));
+            toppingsNomes.push(input.value);
+        });
+
+        
+        var precoFinal = tipoPreco + recheiosPreco + toppingsPreco;
+        
+        
+        if (customPrecoTotal) {
+            customPrecoTotal.textContent = "R$ " + precoFinal.toFixed(2).replace(".", ",");
+        }
+
+        
+        var resumoTexto = "Base: " + baseNome;
+        if (recheiosNomes.length > 0) {
+            resumoTexto += " | Recheios: " + recheiosNomes.join(", ");
+        } else {
+            resumoTexto += " | Recheios: Nenhum";
+        }
+        if (toppingsNomes.length > 0) {
+            resumoTexto += " | Toppings: " + toppingsNomes.join(", ");
+        } else {
+            resumoTexto += " | Toppings: Nenhum";
+        }
+        
+        if (customResumoTexto) {
+            customResumoTexto.textContent = resumoTexto;
+        }
+
+        return {
+            tipoNome: tipoNome,
+            preco: precoFinal,
+            observacao: resumoTexto
+        };
+    }
+
+    if (formCustom) {
+        
+        formCustom.addEventListener("change", function () {
+            atualizarDocePersonalizado();
+        });
+
+        
+        var recheiosCheckboxes = formCustom.querySelectorAll("input[name='custom-recheio']");
+        recheiosCheckboxes.forEach(function (cb) {
+            cb.addEventListener("click", function (e) {
+                var checkedCount = formCustom.querySelectorAll("input[name='custom-recheio']:checked").length;
+                if (checkedCount > 3) {
+                    e.preventDefault();
+                    if (erroRecheios) {
+                        erroRecheios.textContent = "Escolha no máximo 3 recheios.";
+                    }
+                } else {
+                    if (erroRecheios) erroRecheios.textContent = "";
+                }
+            });
+        });
+
+        
+        var toppingsCheckboxes = formCustom.querySelectorAll("input[name='custom-topping']");
+        toppingsCheckboxes.forEach(function (cb) {
+            cb.addEventListener("click", function (e) {
+                var checkedCount = formCustom.querySelectorAll("input[name='custom-topping']:checked").length;
+                if (checkedCount > 2) {
+                    e.preventDefault();
+                    if (erroToppings) {
+                        erroToppings.textContent = "Escolha no máximo 2 toppings.";
+                    }
+                } else {
+                    if (erroToppings) erroToppings.textContent = "";
+                }
+            });
+        });
+
+        
+        formCustom.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            var dados = atualizarDocePersonalizado();
+            var produtoNome = dados.tipoNome + " — R$ " + dados.preco.toFixed(2).replace(".", ",");
+            var observacao = dados.observacao;
+
+            
+            var novaLinha = criarLinha(proximoId, produtoNome, 1, observacao);
+            proximoId++;
+            tbodyPedido.appendChild(novaLinha);
+
+            
+            atualizarResumo();
+            salvarCarrinho();
+
+            
+            formCustom.reset();
+            if (erroRecheios) erroRecheios.textContent = "";
+            if (erroToppings) erroToppings.textContent = "";
+            atualizarDocePersonalizado(); 
+
+            
+            var listaArea = document.querySelector(".pedido-lista-area");
+            if (listaArea) {
+                listaArea.scrollIntoView({ behavior: "smooth" });
+                var tabela = document.getElementById("tabela-pedido");
+                if (tabela) {
+                    tabela.classList.add("tabela-destaque");
+                    setTimeout(function () {
+                        tabela.classList.remove("tabela-destaque");
+                    }, 1500);
+                }
+            }
+        });
+
+        
+        atualizarDocePersonalizado();
+    }
+
+    
     carregarCarrinho();
 
-    // Captura o parâmetro do produto enviado pelo cardápio
+    
     var params = new URLSearchParams(window.location.search);
     var produtoParam = params.get("produto");
     if (produtoParam) {
-        // Valida se o produto existe no select
+        
         var selectProduto = document.getElementById("produto");
         var opcaoExiste = false;
         if (selectProduto) {
@@ -306,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (opcaoExiste) {
-            // Verifica se o produto já existe no carrinho para apenas somar a quantidade
+            
             var trExistente = null;
             var linhas = tbodyPedido.querySelectorAll("tr");
             for (var i = 0; i < linhas.length; i++) {
@@ -327,14 +510,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 tbodyPedido.appendChild(novaLinha);
             }
 
-            // Atualiza o resumo e salva o estado do carrinho
+            
             atualizarResumo();
             salvarCarrinho();
 
-            // Limpa o parâmetro da URL para evitar inserções repetidas ao recarregar a página
+            
             window.history.replaceState({}, document.title, window.location.pathname);
 
-            // Rola suavemente até o carrinho e aplica uma animação de destaque
+            
             var listaArea = document.querySelector(".pedido-lista-area");
             if (listaArea) {
                 listaArea.scrollIntoView({ behavior: "smooth" });
